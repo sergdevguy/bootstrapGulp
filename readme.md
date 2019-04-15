@@ -9,7 +9,7 @@ Included:
 3) .gitignore - igniored files
 
 4) gulpfile.js - task runner with tasks on gulp 4:
-        gulp - just gulp :)
+&#9; gulp - just gulp :)
         browser-sync - reload browser
         gulp-sass - translate sass to css
 
