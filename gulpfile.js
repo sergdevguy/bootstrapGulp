@@ -86,6 +86,8 @@ var config = {
 };
 
 /* подключаем gulp и плагины */
+
+const { src, dest, parallel, series, watch } = require('gulp');
 var gulp = require('gulp'),  // подключаем Gulp
     webserver = require('browser-sync'), // сервер для работы и автоматического обновления страниц
     plumber = require('gulp-plumber'), // модуль для отслеживания ошибок
@@ -167,9 +169,13 @@ gulp.task('image:build', function () {
 });
 
 // удаление каталога build 
-gulp.task('clean:build', function () {
+function cleanBuild(cb){
+	del.sync(path.clean);
+	cb();
+}
+/*gulp.task('clean:build', function () {
     del.sync(path.clean);
-});
+});*/
 
 // очистка кэша
 gulp.task('cache:clear', function () {
@@ -177,28 +183,32 @@ gulp.task('cache:clear', function () {
 });
 
 // сборка
-gulp.task('build', [
-    'clean:build',
-    'html:build',
-    'css:build',
-    'js:build',
-    'fonts:build',
-    'image:build'
-]);
+function build(cb){
+	series(
+	    cleanBuild,
+	    'html:build',
+	    'css:build',
+	    'js:build',
+	    'fonts:build',
+	    'image:build'
+	);
+	cb();
+}
 
 // запуск задач при изменении файлов
-gulp.task('watch', function() {
-    gulp.watch(path.watch.html, ['html:build']);
-    gulp.watch(path.watch.css, ['css:build']);
-    gulp.watch(path.watch.js, ['js:build']);
-    gulp.watch(path.watch.img, ['image:build']);
-    gulp.watch(path.watch.fonts, ['fonts:build']);
-});
+function watchChanges(cb){
+  watch(path.watch.html, ['html:build']);
+  watch(path.watch.css, ['css:build']);
+  watch(path.watch.js, ['js:build']);
+  watch(path.watch.img, ['image:build']);
+  watch(path.watch.fonts, ['fonts:build']);
+	cb();
+}
 
 // задача по умолчанию
-gulp.task('default', [
-    'clean:build',
-    'build',
-    'webserver',
-    'watch'
-]);
+exports.default = series(
+	cleanBuild,
+  build,
+  webserver,
+  watchChanges
+);
