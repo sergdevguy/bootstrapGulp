@@ -1,7 +1,7 @@
 // Импортируем jQuery
-//= ../bower_components/jquery/dist/jquery.js
+//= ../../../node_modules/jquery/dist/jquery.js
  
-// Импортируем Popper
+/*// Импортируем Popper
 //= ../bower_components/popper.js/dist/umd/popper.js
  
 // Импортируем необходимые js-файлы Bootstrap 4
@@ -15,7 +15,7 @@
 //= ../bower_components/bootstrap/js/dist/scrollspy.js
 //= ../bower_components/bootstrap/js/dist/tab.js
 //= ../bower_components/bootstrap/js/dist/tooltip.js
-//= ../bower_components/bootstrap/js/dist/popover.js
+//= ../bower_components/bootstrap/js/dist/popover.js*/
  
 // Импортируем другие js-файлы
-//= my.js
+//= my.js*/
