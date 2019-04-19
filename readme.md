@@ -1,6 +1,6 @@
 # Starting-template
 
-Ready template for starting development.
+Ready template for starting development.  
 Use: Yarn, Gulp4, Git
 
 For starting do:
