@@ -170,7 +170,7 @@ function watchChanges(cb){
 	cb();
 }
 
-// задача по умолчанию
+// autostart tasks on "gulp" command in console
 exports.default = series(
 	cleanBuild,
 	build,
