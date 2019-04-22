@@ -6,6 +6,7 @@ Use: Yarn, Gulp4, Git
 For starting do:
 1. git clone "repository URL" - clone files from github.
 2. yarn install - install all packages.
+3. gulp - command for start tasks. Open in browser and etc.
 
 Template structure:
 1. *assets/build* - prodaction folder
