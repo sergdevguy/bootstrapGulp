@@ -1,7 +1,7 @@
-/*// rewriting default values variables Bootstrap 4 with yourself
-@import "variables";
+// rewriting default values variables Bootstrap 4 with yourself
+//@import "variables";
 
-// connect needed Bootstrap 4 files 
+/*// connect needed Bootstrap 4 files 
 @import "../bower_components/bootstrap/scss/functions";
 @import "../bower_components/bootstrap/scss/variables";
 @import "../bower_components/bootstrap/scss/mixins";
@@ -22,6 +22,9 @@
 @import "../bower_components/bootstrap/scss/close";
 @import "../bower_components/bootstrap/scss/utilities";
 */
+
+@import "../../../node_modules/bootstrap/dist/css/bootstrap-reboot.min.css";
+@import "../../../node_modules/bootstrap/dist/css/bootstrap-grid.min.css";
 
 // connect your styles
 @import "my";
