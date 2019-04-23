@@ -1,30 +1,14 @@
-// rewriting default values variables Bootstrap 4 with yourself
-//@import "variables";
+// Override default variable Bootstrap 4 values and determine their
+@import "variables";
 
-/*// connect needed Bootstrap 4 files 
-@import "../bower_components/bootstrap/scss/functions";
-@import "../bower_components/bootstrap/scss/variables";
-@import "../bower_components/bootstrap/scss/mixins";
-@import "../bower_components/bootstrap/scss/reboot";
-@import "../bower_components/bootstrap/scss/grid";
-@import "../bower_components/bootstrap/scss/tables";
-@import "../bower_components/bootstrap/scss/forms";
-@import "../bower_components/bootstrap/scss/buttons";
-@import "../bower_components/bootstrap/scss/transitions";
-@import "../bower_components/bootstrap/scss/dropdown";
-@import "../bower_components/bootstrap/scss/input-group";
-@import "../bower_components/bootstrap/scss/nav";
-@import "../bower_components/bootstrap/scss/navbar";
-@import "../bower_components/bootstrap/scss/card";
-@import "../bower_components/bootstrap/scss/pagination";
-@import "../bower_components/bootstrap/scss/badge";
-@import "../bower_components/bootstrap/scss/alert";
-@import "../bower_components/bootstrap/scss/close";
-@import "../bower_components/bootstrap/scss/utilities";
-*/
+// Required files for bootstrap
+@import "../../../node_modules/bootstrap/scss/functions";
+@import "../../../node_modules/bootstrap/scss/variables";
+@import "../../../node_modules/bootstrap/scss/mixins";
 
-@import "../../../node_modules/bootstrap/dist/css/bootstrap-reboot.min.css";
-@import "../../../node_modules/bootstrap/dist/css/bootstrap-grid.min.css";
+// Optional imports
+@import "../../../node_modules/bootstrap/scss/bootstrap-reboot.scss";
+@import "../../../node_modules/bootstrap/scss/bootstrap-grid.scss";
 
-// connect your styles
+// connect my styles
 @import "my";
