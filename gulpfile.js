@@ -109,7 +109,7 @@ function cssBuild(cb){
 function jsBuild(cb){
 	return src(path.src.js)
 		     .pipe(plumber()) // для отслеживания ошибок
-         //.pipe(rigger()) // импортируем все указанные файлы в main.js
+         .pipe(rigger()) // импортируем все указанные файлы в main.js
          .pipe(sourcemaps.init()) //инициализируем sourcemap
          .pipe(uglify()) // минимизируем js
          .pipe(sourcemaps.write('./')) //  записываем sourcemap
@@ -126,9 +126,9 @@ function fontsBuild(cb){
 }
 
 function imageBuild(cb){
-	return src(path.src.fonts)
+	return src(path.src.img)
 		     .pipe(cache(imagemin([ // сжатие изображений
-		    imagemin.gifsicle({interlaced: true}),
+		     imagemin.gifsicle({interlaced: true}),
             jpegrecompress({
                 progressive: true,
                 max: 90,

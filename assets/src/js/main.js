@@ -1,21 +1,10 @@
-// Импортируем jQuery
+// import required js-files
 //= ../../../node_modules/jquery/dist/jquery.js
+//= ../../../node_modules/bootstrap/js/dist/util.js
+
  
-/*// Импортируем Popper
-//= ../bower_components/popper.js/dist/umd/popper.js
+// Import needed js-files from Bootstrap 4
+//= ../../../node_modules/bootstrap/js/dist/carousel.js
  
-// Импортируем необходимые js-файлы Bootstrap 4
-//= ../bower_components/bootstrap/js/dist/util.js
-//= ../bower_components/bootstrap/js/dist/alert.js
-//= ../bower_components/bootstrap/js/dist/button.js
-//= ../bower_components/bootstrap/js/dist/carousel.js
-//= ../bower_components/bootstrap/js/dist/collapse.js
-//= ../bower_components/bootstrap/js/dist/dropdown.js
-//= ../bower_components/bootstrap/js/dist/modal.js
-//= ../bower_components/bootstrap/js/dist/scrollspy.js
-//= ../bower_components/bootstrap/js/dist/tab.js
-//= ../bower_components/bootstrap/js/dist/tooltip.js
-//= ../bower_components/bootstrap/js/dist/popover.js*/
- 
-// Импортируем другие js-файлы
-//= my.js*/
+// Import my own js
+//= my.js
