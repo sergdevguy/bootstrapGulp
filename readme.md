@@ -1,7 +1,7 @@
 # Starting-template
 
 Ready template for starting development.  
-Use: Yarn, Gulp4, Git
+With bootstrap greed. 
 
 For starting do:
 1. git clone "repository URL" - clone files from github.
