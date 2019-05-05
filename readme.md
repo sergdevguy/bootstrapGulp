@@ -1,13 +1,20 @@
 # Starting-template
 
 Ready template for starting development.  
-With bootstrap greed. 
 
+With bootstrap:  
+1) reboot   
+2) greed  
+3) carousel
+___
+### START
 For starting do:
 1. git clone "repository URL" - clone files from github.
 2. yarn install - install all packages.
 3. gulp - command for start tasks. Open in browser and etc.
 
+___
+### STRUCTURE
 Template structure:
 1. *assets/build* - prodaction folder
 2. *assets/src* - dev project folder
