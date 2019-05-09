@@ -2,10 +2,12 @@
 
 Ready template for starting development.  
 
-With bootstrap:  
-1) reboot   
-2) greed  
-3) carousel
+With:  
+1) JQuery
+2) Bootstrap:  
+  a) reboot   
+  b) greed  
+  c) carousel
 ___
 ### START
 For starting do:
@@ -31,3 +33,7 @@ Template structure:
     
 5. *package.json* - dependencies and devDependencies info
 6. *yarn.lock* - just for yarn
+
+___
+### LIBS
+You can delete libs in "main" classes. CSS libs in _main.css_ file, JS libs in _main.js_ file.
