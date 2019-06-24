@@ -70,7 +70,8 @@ const webserver = require('browser-sync'), // reload browser in real time
       imagemin = require('gulp-imagemin'), // for minimaze PNG, JPEG, GIF and SVG
       jpegrecompress = require('imagemin-jpeg-recompress'), // for minimaze jpeg	
       pngquant = require('imagemin-pngquant'), // for minimaze png
-      del = require('del'); // remove files and folders
+      del = require('del'), // remove files and folders
+      stripCssComments = require('gulp-strip-css-comments'); // remove comments
 
 
 // _______________________________________________________
@@ -100,6 +101,7 @@ function cssBuild(cb){
          }))
          .pipe(cleanCSS())
          .pipe(sourcemaps.write('./'))
+         .pipe(stripCssComments({preserve: false}))
          .pipe(dest(path.build.css))
          .pipe(webserver.reload({stream: true}));
 }

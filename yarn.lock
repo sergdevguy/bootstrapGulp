@@ -2597,6 +2597,15 @@ gulp-sourcemaps@^2.6.5:
     strip-bom-string "1.X"
     through2 "2.X"
 
+gulp-strip-css-comments@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/gulp-strip-css-comments/-/gulp-strip-css-comments-2.0.0.tgz#6cb7ecc388cbbc9bf6cd9aba24112e6a8373640b"
+  integrity sha512-K6QMBcuGHTwY1gjerGQ3uXo1VQfN1KM7I5wvjJYvggJ+bmXSWJHmEdBwK2NO524e2cu0AXHHRs0QrwjnvrrZtA==
+  dependencies:
+    plugin-error "^0.1.2"
+    strip-css-comments "^3.0.0"
+    through2 "^2.0.0"
+
 gulp-uglify@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/gulp-uglify/-/gulp-uglify-3.0.2.tgz#5f5b2e8337f879ca9dec971feb1b82a5a87850b0"
@@ -3222,6 +3231,11 @@ is-regex@^1.0.4:
   integrity sha1-VRdIm1RwkbCTDglWVM7SXul+lJE=
   dependencies:
     has "^1.0.1"
+
+is-regexp@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/is-regexp/-/is-regexp-1.0.0.tgz#fd2d883545c46bac5a633e7b9a09e87fa2cb5069"
+  integrity sha1-/S2INUXEa6xaYz57mgnof6LLUGk=
 
 is-relative@^1.0.0:
   version "1.0.0"
@@ -5483,6 +5497,13 @@ strip-bom@^2.0.0:
   integrity sha1-YhmoVhZSBJHzV4i9vxRHqZx+aw4=
   dependencies:
     is-utf8 "^0.2.0"
+
+strip-css-comments@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/strip-css-comments/-/strip-css-comments-3.0.0.tgz#7a5625eff8a2b226cf8947a11254da96e13dae89"
+  integrity sha1-elYl7/iisibPiUehElTaluE9rok=
+  dependencies:
+    is-regexp "^1.0.0"
 
 strip-dirs@^2.0.0:
   version "2.1.0"
