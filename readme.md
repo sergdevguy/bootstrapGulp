@@ -1,6 +1,6 @@
 # Starting-template
 
-Ready template for starting development.   
+Template for starting development.   
 Open browser and start watch to changes in __assets/src__ folder. On changes reload browser and rebuild project into __build/__ folder.  Rebuild is:  
 1) __Styles.__ Minimaize and concatenate scss and css + removing comments.  
 2) __JS.__ Minimize and concatenate all js.  
