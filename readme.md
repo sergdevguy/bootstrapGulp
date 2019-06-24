@@ -1,8 +1,12 @@
 # Starting-template
 
-Ready template for starting development.  
+Ready template for starting development.   
+Open browser and start watch to changes in __assets/src__ folder. On changes reload browser and rebuild project into __build/__ folder.  Rebuild is:  
+1) __Styles.__ Minimaize and concatenate scss and css + removing comments.  
+2) __JS.__ Minimize and concatenate all js.  
+3) __Imgs.__ Compress jpg and png images.
 
-With:  
+Include on defoalt:  
 1) JQuery
 2) Bootstrap:  
   a) reboot   
@@ -35,5 +39,6 @@ Template structure:
 6. *yarn.lock* - just for yarn
 
 ___
-### LIBS
-You can delete libs in "main" classes. CSS libs in _main.css_ file, JS libs in _main.js_ file.
+### TEMPLATE SETTINGS
+You can delete libs in "main" classes.  
+CSS libs in _main.css_ file, JS libs in _main.js_ file.
