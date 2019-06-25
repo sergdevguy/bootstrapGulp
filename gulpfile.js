@@ -71,7 +71,8 @@ const webserver = require('browser-sync'), // reload browser in real time
       jpegrecompress = require('imagemin-jpeg-recompress'), // for minimaze jpeg	
       pngquant = require('imagemin-pngquant'), // for minimaze png
       del = require('del'), // remove files and folders
-      stripCssComments = require('gulp-strip-css-comments'); // remove comments
+      stripCssComments = require('gulp-strip-css-comments'), // remove comments
+      newer = require('gulp-newer'); // passing through only those source files that are newer
 
 
 // _______________________________________________________
@@ -123,7 +124,8 @@ function fontsBuild(cb){
 }
 
 function imageBuild(cb){
-	return src(path.src.img)
+  return src(path.src.img)
+          //.pipe(newer(path.build.img))
 		      .pipe(cache(imagemin([ // compressing img
 		        imagemin.gifsicle({interlaced: true}),
             jpegrecompress({
