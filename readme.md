@@ -6,7 +6,7 @@ Project do: open browser and start watch to changes in __assets/src__ folder. On
 2) __JS.__ Minimize and concatenate all js.  
 3) __Imgs.__ Compress jpg and png images.
 
-Include on defoalt:  
+Include, by default:  
 1) JQuery
 2) Bootstrap:  
   a) reboot   
