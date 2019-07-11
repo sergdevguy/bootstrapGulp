@@ -1,7 +1,7 @@
 # Starting-template
 
 Template for starting development.   
-Project do: open browser and start watch to changes in __assets/src__ folder. On changes reload browser and rebuild project into __build/__ folder.  Rebuild is:  
+Project do: open browser and start watch to changes in __assets/src__ folder. On changes rebuild project into __build/__ folder and reload browser.  Rebuild is:  
 1) __Styles.__ Minimaize and concatenate scss and css + removing comments.  
 2) __JS.__ Minimize and concatenate all js.  
 3) __Imgs.__ Compress jpg and png images.
@@ -12,12 +12,13 @@ Include, by default:
   a) reboot   
   b) greed  
   c) carousel
+  
 ___
 ### START
 For starting do:
-1. git clone "repository URL" - clone files from github.
-2. yarn install - install all packages.
-3. gulp - command for start tasks. Open in browser and etc.
+1. _git clone "repository URL"_ - clone files from github.
+2. _yarn install_ - install all packages.
+3. _gulp_ - command for start work (auto-open browser, watch files...).
 
 ___
 ### STRUCTURE
