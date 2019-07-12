@@ -1,11 +1,15 @@
 "use strict";
 
 
-// ____________________________________________________
-// _______________________ VARS _______________________
-// ____________________________________________________
+
+
+/* ___________________________________________________
+______________________________________________________
+_______________________ VARS _________________________
+___________________________________________________ */
 
 // for gulp-autoprefixer 
+// what browsers need to support
 var autoprefixerList = [
   'Chrome >= 45',
 	'Firefox ESR',
@@ -16,7 +20,8 @@ var autoprefixerList = [
 	'Android >= 4.4',
 	'Opera >= 30'
 ];
-// path to src, build, files who need whaching and folder who need clean.
+
+// fast path for src, build, watch, clean tasks
 var path = {
     build: {
         html:  'assets/build/',
@@ -41,7 +46,8 @@ var path = {
     },
     clean:     './assets/build/*'
 };
-// browser-sync server settings 
+
+// browser-sync server settings
 var config = {
     server: {
         baseDir: './assets/build'
@@ -52,12 +58,15 @@ var config = {
 };
 
 
-// _______________________________________________________
-// _______________________ PLUGINS _______________________
-// _______________________________________________________
 
-// Add plugins
-const { src, dest, parallel, series, watch } = require('gulp');
+
+/* ___________________________________________________
+______________________________________________________
+__________________ REQUIRE PLUGINS ___________________
+___________________________________________________ */
+
+// Add packages
+const { src, dest, series, watch } = require('gulp');
 const webserver = require('browser-sync'), // reload browser in real time
       plumber = require('gulp-plumber'), // for errors
       rigger = require('gulp-rigger'), // import info from files to other files
@@ -71,18 +80,26 @@ const webserver = require('browser-sync'), // reload browser in real time
       jpegrecompress = require('imagemin-jpeg-recompress'), // for minimaze jpeg	
       pngquant = require('imagemin-pngquant'), // for minimaze png
       del = require('del'), // remove files and folders
-      stripCssComments = require('gulp-strip-css-comments'), // remove comments
-      newer = require('gulp-newer'); // passing through only those source files that are newer
+      stripCssComments = require('gulp-strip-css-comments') // remove comments
+      //newer = require('gulp-newer'); // passing through only those source files that are newer
 
 
-// _______________________________________________________
-// _______________________ TASKS _________________________
-// _______________________________________________________
 
-function createWebserver(cb){
-	webserver(config);
+
+/* ___________________________________________________
+______________________________________________________
+_______________________ TASKS ________________________
+___________________________________________________ */
+
+// First step - clean build folder
+
+function cleanBuildFolder(cb){
+	del.sync(path.clean);
 	cb();
-};
+}
+ 
+// This is build functions for all type of web dev files: html, styles(css, scss), code(js), imgs.
+// This functions group(call) into one additional function - "runAllBuildFunctions"
 
 function htmlBuild(cb){
 	return src(path.src.html)
@@ -139,26 +156,26 @@ function imageBuild(cb){
         .pipe(dest(path.build.img));
 }
 
-function cleanBuild(cb){
-	del.sync(path.clean);
-	cb();
-}
+// Container for builds functions. Call in main funcion - default.
 
-function cacheClear(cb){
-	cache.clearAll();
-	cb();
-};
-
-function build(cb){
-	htmlBuild(); 
+function runAllBuildFunctions(cb){
+	htmlBuild();
 	cssBuild();
 	jsBuild();
-	fontsBuild(); 
+	fontsBuild();
 	imageBuild();
 	cb();
 }
 
-// start tasks on files changes
+// Next essence.
+
+function createWebserver(cb){
+	webserver(config);
+	cb();
+};
+
+// Next essence.
+
 function watchChanges(cb){
   watch(path.watch.html, htmlBuild);
   watch(path.watch.css, cssBuild);
@@ -168,10 +185,18 @@ function watchChanges(cb){
 	cb();
 }
 
-// autostart tasks on "gulp" command in console
+
+
+
+/* ___________________________________________________
+______________________________________________________
+__________________ TASKS FOR CONSOLE _________________
+___________________________________________________ */
+
+// this tasks runs on "gulp" command in console
 exports.default = series(
-	cleanBuild,
-	build,
+	cleanBuildFolder,
+	runAllBuildFunctions,
   createWebserver,
   watchChanges
 );
