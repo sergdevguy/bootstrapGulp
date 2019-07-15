@@ -10,7 +10,7 @@ ___________________________________________________ */
 
 // for gulp-autoprefixer 
 // what browsers need to support
-var autoprefixerList = [
+/*var autoprefixerList = [
   'Chrome >= 45',
 	'Firefox ESR',
 	'Edge >= 12',
@@ -19,7 +19,7 @@ var autoprefixerList = [
 	'Safari >= 9',
 	'Android >= 4.4',
 	'Opera >= 30'
-];
+];*/
 
 // fast path for src, build, watch, clean tasks
 var path = {
@@ -115,7 +115,8 @@ function cssBuild(cb){
          .pipe(sourcemaps.init())
          .pipe(sass())
          .pipe(autoprefixer({
-            browsers: autoprefixerList
+            overrideBrowserslist: ['last 2 versions'],
+            cascade: false
          }))
          .pipe(cleanCSS())
          .pipe(sourcemaps.write('./'))
