@@ -78,15 +78,18 @@ ______________________________________________________
 _______________________ TASKS ________________________
 ___________________________________________________ */
 
-// First step - clean build folder
+// FIRST STEP - clean build folder
 
 function cleanBuildFolder(cb){
 	del.sync(path.clean);
 	cb();
 }
- 
+
+
+// NEXT STEP - write some functions for build some files.
+
 // This is build functions for all type of web dev files: html, styles(css, scss), code(js), imgs.
-// This functions group(call) into one additional function - "runAllBuildFunctions"
+// This functions group(calls) into one additional function - "runAllBuildFunctions"
 
 function htmlBuild(){
 	return src(path.src.html)
@@ -144,7 +147,7 @@ function imageBuild(){
         .pipe(dest(path.build.img));
 }
 
-// Container for builds functions. Call in main funcion - default.
+// NEXT STEP - Container for builds functions. Call in main funcion - default.
 
 function runAllBuildFunctions(cb){
 	htmlBuild();
@@ -155,14 +158,14 @@ function runAllBuildFunctions(cb){
 	cb();
 }
 
-// Next essence.
+// NEXT STEP
 
 function createWebserver(cb){
 	webserver(config);
 	cb();
 };
 
-// Next essence.
+// NEXT STEP
 
 function watchChanges(cb){
   watch(path.watch.html, htmlBuild);
@@ -181,7 +184,7 @@ ______________________________________________________
 __________________ TASKS FOR CONSOLE _________________
 ___________________________________________________ */
 
-// this tasks runs on "gulp" command in console
+// this tasks runs on "gulp" command in console and do all project.
 exports.default = series(
 	cleanBuildFolder,
 	runAllBuildFunctions,
