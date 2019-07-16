@@ -88,7 +88,7 @@ function cleanBuildFolder(cb){
 // This is build functions for all type of web dev files: html, styles(css, scss), code(js), imgs.
 // This functions group(call) into one additional function - "runAllBuildFunctions"
 
-function htmlBuild(cb){
+function htmlBuild(){
 	return src(path.src.html)
 		     .pipe(plumber())
          .pipe(rigger())
@@ -96,7 +96,7 @@ function htmlBuild(cb){
          .pipe(webserver.reload({stream: true}));
 }
 
-function cssBuild(cb){
+function cssBuild(){
 	return src(path.src.style)
 		     .pipe(plumber())
          .pipe(sourcemaps.init())
@@ -112,7 +112,7 @@ function cssBuild(cb){
          .pipe(webserver.reload({stream: true}));
 }
 
-function jsBuild(cb){
+function jsBuild(){
 	return src(path.src.js)
 		     .pipe(plumber())
          .pipe(rigger())
@@ -123,12 +123,12 @@ function jsBuild(cb){
          .pipe(webserver.reload({stream: true}));
 }
 
-function fontsBuild(cb){
+function fontsBuild(){
 	return src(path.src.fonts)
 		     .pipe(dest(path.build.fonts));
 }
 
-function imageBuild(cb){
+function imageBuild(){
   return src(path.src.img)
           //.pipe(newer(path.build.img))
 		      .pipe(cache(imagemin([ // compressing img
