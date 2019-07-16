@@ -67,7 +67,7 @@ const webserver = require('browser-sync'), // reload browser in real time
       jpegrecompress = require('imagemin-jpeg-recompress'), // for minimaze jpeg	
       pngquant = require('imagemin-pngquant'), // for minimaze png
       del = require('del'), // remove files and folders
-      stripCssComments = require('gulp-strip-css-comments') // remove comments
+      stripCssComments = require('gulp-strip-css-comments'); // remove comments
       //newer = require('gulp-newer'); // passing through only those source files that are newer
 
 
@@ -83,7 +83,7 @@ ___________________________________________________ */
 function cleanBuildFolder(cb){
 	del.sync(path.clean);
 	cb();
-}
+};
 
 
 // NEXT STEP - write some functions for build some files.
@@ -97,7 +97,7 @@ function htmlBuild(){
          .pipe(rigger())
          .pipe(dest(path.build.html))
          .pipe(webserver.reload({stream: true}));
-}
+};
 
 function cssBuild(){
 	return src(path.src.style)
@@ -113,7 +113,7 @@ function cssBuild(){
          .pipe(stripCssComments({preserve: false}))
          .pipe(dest(path.build.css))
          .pipe(webserver.reload({stream: true}));
-}
+};
 
 function jsBuild(){
 	return src(path.src.js)
@@ -124,12 +124,12 @@ function jsBuild(){
          .pipe(sourcemaps.write('./'))
          .pipe(dest(path.build.js))
          .pipe(webserver.reload({stream: true}));
-}
+};
 
 function fontsBuild(){
 	return src(path.src.fonts)
 		     .pipe(dest(path.build.fonts));
-}
+};
 
 function imageBuild(){
   return src(path.src.img)
@@ -145,7 +145,7 @@ function imageBuild(){
             imagemin.svgo({plugins: [{removeViewBox: false}]})
 		      ])))
         .pipe(dest(path.build.img));
-}
+};
 
 // NEXT STEP - Container for builds functions. Call in main funcion - default.
 
@@ -156,7 +156,7 @@ function runAllBuildFunctions(cb){
 	fontsBuild();
 	imageBuild();
 	cb();
-}
+};
 
 // NEXT STEP
 
@@ -174,7 +174,7 @@ function watchChanges(cb){
   watch(path.watch.img, imageBuild);
   watch(path.watch.fonts, fontsBuild);
 	cb();
-}
+};
 
 
 
