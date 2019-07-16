@@ -188,3 +188,4 @@ exports.default = series(
   createWebserver,
   watchChanges
 );
+test
