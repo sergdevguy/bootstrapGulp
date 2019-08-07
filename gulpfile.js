@@ -20,14 +20,14 @@ var path = {
     src: {
         html:  'assets/src/*.html',
         js:    'assets/src/js/main.js',
-        style: 'assets/src/style/main.scss',
+        style: 'assets/src/sass/main.scss',
         img:   'assets/src/img/**/*.*',
         fonts: 'assets/src/fonts/**/*.*'
     },
     watch: {
         html:  'assets/src/**/*.html',
         js:    'assets/src/js/**/*.js',
-        css:   'assets/src/style/**/*.scss',
+        css:   'assets/src/sass/**/*.scss',
         img:   'assets/src/img/**/*.*',
         fonts: 'assets/srs/fonts/**/*.*'
     },
@@ -37,7 +37,7 @@ var path = {
 // browser-sync server settings
 var config = {
     server: {
-        baseDir: './assets/build'
+        baseDir: './assets/src'
     },
     port: 8089,
 		open: true,
@@ -54,20 +54,20 @@ ___________________________________________________ */
 
 // Add packages
 const { src, dest, series, watch } = require('gulp');
-const webserver = require('browser-sync'), // reload browser in real time
-      plumber = require('gulp-plumber'), // for errors
-      rigger = require('gulp-rigger'), // import info from files to other files
-      sourcemaps = require('gulp-sourcemaps'), // sourcemaps for css and js
-      sass = require('gulp-sass'), // SCSS to CSS
-      autoprefixer = require('gulp-autoprefixer'),
-      cleanCSS = require('gulp-clean-css'), // minimize CSS
-      uglify = require('gulp-uglify'), // minimize JS
-      cache = require('gulp-cache'), // for cache imgs
-      imagemin = require('gulp-imagemin'), // for minimaze PNG, JPEG, GIF and SVG
-      jpegrecompress = require('imagemin-jpeg-recompress'), // for minimaze jpeg	
-      pngquant = require('imagemin-pngquant'), // for minimaze png
-      del = require('del'), // remove files and folders
-      stripCssComments = require('gulp-strip-css-comments'); // remove comments
+const webserver         = require('browser-sync'), // reload browser in real time
+      plumber           = require('gulp-plumber'), // for errors
+      rigger            = require('gulp-rigger'), // import info from files to other files
+      sourcemaps        = require('gulp-sourcemaps'), // sourcemaps for css and js
+      sass              = require('gulp-sass'), // SCSS to CSS
+      autoprefixer      = require('gulp-autoprefixer'),
+      cleanCSS          = require('gulp-clean-css'), // minimize CSS
+      uglify            = require('gulp-uglify'), // minimize JS
+      cache             = require('gulp-cache'), // for cache imgs
+      imagemin          = require('gulp-imagemin'), // for minimaze PNG, JPEG, GIF and SVG
+      jpegrecompress    = require('imagemin-jpeg-recompress'), // for minimaze jpeg	
+      pngquant          = require('imagemin-pngquant'), // for minimaze png
+      del               = require('del'), // remove files and folders
+      stripCssComments  = require('gulp-strip-css-comments'); // remove comments
       //newer = require('gulp-newer'); // passing through only those source files that are newer
 
 
@@ -102,16 +102,16 @@ function htmlBuild(){
 function cssBuild(){
 	return src(path.src.style)
 		     .pipe(plumber())
-         .pipe(sourcemaps.init())
+         //.pipe(sourcemaps.init())
          .pipe(sass())
          .pipe(autoprefixer({
             overrideBrowserslist: ['last 2 versions'],
             cascade: false
          }))
          .pipe(cleanCSS())
-         .pipe(sourcemaps.write('./'))
+         //.pipe(sourcemaps.write('./'))
          .pipe(stripCssComments({preserve: false}))
-         .pipe(dest(path.build.css))
+         .pipe(dest('assets/src/css'))
          .pipe(webserver.reload({stream: true}));
 };
 
@@ -119,10 +119,10 @@ function jsBuild(){
 	return src(path.src.js)
 		     .pipe(plumber())
          .pipe(rigger())
-         .pipe(sourcemaps.init())
+         //.pipe(sourcemaps.init())
          .pipe(uglify())
-         .pipe(sourcemaps.write('./'))
-         .pipe(dest(path.build.js))
+         //.pipe(sourcemaps.write('./'))
+         .pipe(dest('assets/src/js/main.min.js'))
          .pipe(webserver.reload({stream: true}));
 };
 
@@ -184,10 +184,15 @@ ______________________________________________________
 __________________ TASKS FOR CONSOLE _________________
 ___________________________________________________ */
 
-// this tasks runs on "gulp" command in console and do all project.
-exports.default = series(
-	cleanBuildFolder,
-	runAllBuildFunctions,
+// build files and watch changes
+exports.watch = series(
+  parallel(
+    htmlBuild(),
+	  cssBuild(),
+	  jsBuild(),
+	  fontsBuild(),
+	  imageBuild()
+  ),
   createWebserver,
   watchChanges
 );

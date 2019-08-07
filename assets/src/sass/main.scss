@@ -1,5 +1,4 @@
-// Override default variable Bootstrap 4 values and determine their
-@import "variables";
+// BOOTSTRAP 4
 
 // Required files for bootstrap
 @import "../../../node_modules/bootstrap/scss/functions";
@@ -11,8 +10,15 @@
 @import "../../../node_modules/bootstrap/scss/bootstrap-grid.scss";
 @import "../../../node_modules/bootstrap/scss/carousel";
 
+
+
+
 // Fonts
 @import "fonts";
 
+
+
+
 // Connect my styles
+@import "variables";
 @import "my";
