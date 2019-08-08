@@ -30,15 +30,15 @@
         font-weight: $f-weight;
         src: local($f-name), 
              local($f-name-another-var),
-             url($f-name + '.woff2') format('woff2'),
-             url($f-name + '.woff') format('woff'),
-             url($f-name + '.ttf') format('ttf'),
-             url($f-name + '.eot') format('eot');
+             url($f-url + $f-name + '.woff2') format('woff2'),
+             url($f-url + $f-name + '.woff') format('woff'),
+             url($f-url + $f-name + '.ttf') format('truetype'),
+             url($f-url + $f-name + '.eot') format('eot');
     }
 }
 
 
 
 
-// Test font, rewrite this!
-@include font('Font name', 'Font-name', normal, 400, '../fonts/font');
+// Test font, uncomment and rewrite this!
+// @include font('Font name', 'Font-name', normal, 400, '../fonts/font/');

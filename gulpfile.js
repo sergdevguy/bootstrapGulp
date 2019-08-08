@@ -53,7 +53,7 @@ __________________ REQUIRE PLUGINS ___________________
 ___________________________________________________ */
 
 // Add packages
-const { src, dest, series, watch } = require('gulp');
+const { src, dest, series, parallel, watch } = require('gulp');
 const webserver         = require('browser-sync'), // reload browser in real time
       plumber           = require('gulp-plumber'), // for errors
       rigger            = require('gulp-rigger'), // import info from files to other files
@@ -67,8 +67,8 @@ const webserver         = require('browser-sync'), // reload browser in real tim
       jpegrecompress    = require('imagemin-jpeg-recompress'), // for minimaze jpeg	
       pngquant          = require('imagemin-pngquant'), // for minimaze png
       del               = require('del'), // remove files and folders
-      stripCssComments  = require('gulp-strip-css-comments'); // remove comments
-      //newer = require('gulp-newer'); // passing through only those source files that are newer
+      stripCssComments  = require('gulp-strip-css-comments'), // remove comments
+      rename            = require('gulp-rename'); // rename file before dest
 
 
 
@@ -122,7 +122,8 @@ function jsBuild(){
          //.pipe(sourcemaps.init())
          .pipe(uglify())
          //.pipe(sourcemaps.write('./'))
-         .pipe(dest('assets/src/js/main.min.js'))
+         .pipe(rename('main.min.js'))
+         .pipe(dest('assets/src/js'))
          .pipe(webserver.reload({stream: true}));
 };
 
@@ -133,7 +134,6 @@ function fontsBuild(){
 
 function imageBuild(){
   return src(path.src.img)
-          //.pipe(newer(path.build.img))
 		      .pipe(cache(imagemin([ // compressing img
 		        imagemin.gifsicle({interlaced: true}),
             jpegrecompress({
@@ -145,17 +145,6 @@ function imageBuild(){
             imagemin.svgo({plugins: [{removeViewBox: false}]})
 		      ])))
         .pipe(dest(path.build.img));
-};
-
-// NEXT STEP - Container for builds functions. Call in main funcion - default.
-
-function runAllBuildFunctions(cb){
-	htmlBuild();
-	cssBuild();
-	jsBuild();
-	fontsBuild();
-	imageBuild();
-	cb();
 };
 
 // NEXT STEP
@@ -176,6 +165,20 @@ function watchChanges(cb){
 	cb();
 };
 
+function takeFile(from, to){
+  return src(from)
+         .pipe(dest(to));
+};
+
+function moveFile(cb){
+  takeFile(path.src.html, path.build.html);
+  takeFile('assets/src/css/main.css', path.build.css);
+  takeFile('assets/src/js/main.min.js', path.build.js);
+  takeFile(path.src.img, path.build.img);
+  takeFile(path.src.fonts, path.build.fonts);
+  cb();
+}
+
 
 
 
@@ -187,12 +190,19 @@ ___________________________________________________ */
 // build files and watch changes
 exports.watch = series(
   parallel(
-    htmlBuild(),
-	  cssBuild(),
-	  jsBuild(),
-	  fontsBuild(),
-	  imageBuild()
+    htmlBuild,
+	  cssBuild,
+	  jsBuild,
+	  fontsBuild,
+	  imageBuild
   ),
   createWebserver,
   watchChanges
+);
+
+
+// build project to build folder
+exports.build = series(
+  cleanBuildFolder,
+  moveFile
 );
