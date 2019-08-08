@@ -6,6 +6,7 @@
   "author": "Sergey Kharchenko <sergdevguy@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "animate.css": "^3.7.2",
     "bootstrap": "^4.3.1",
     "jquery": "^3.4.0",
     "popper.js": "^1.15.0",
