@@ -19,14 +19,14 @@ var path = {
     },
     src: {
         html:  'assets/src/*.html',
-        js:    'assets/src/js/main.js',
+        js:    'assets/src/dev_js/main.js',
         style: 'assets/src/sass/main.scss',
         img:   'assets/src/img/**/*.*',
         fonts: 'assets/src/fonts/**/*.*'
     },
     watch: {
         html:  'assets/src/**/*.html',
-        js:    'assets/src/js/**/*.js',
+        js:    'assets/src/dev_js/**/*.js',
         css:   'assets/src/sass/**/*.scss',
         img:   'assets/src/img/**/*.*',
         fonts: 'assets/srs/fonts/**/*.*'
@@ -67,8 +67,7 @@ const webserver         = require('browser-sync'), // reload browser in real tim
       jpegrecompress    = require('imagemin-jpeg-recompress'), // for minimaze jpeg	
       pngquant          = require('imagemin-pngquant'), // for minimaze png
       del               = require('del'), // remove files and folders
-      stripCssComments  = require('gulp-strip-css-comments'), // remove comments
-      rename            = require('gulp-rename'); // rename file before dest
+      stripCssComments  = require('gulp-strip-css-comments'); // remove comments
 
 
 
@@ -78,7 +77,7 @@ ______________________________________________________
 _______________________ TASKS ________________________
 ___________________________________________________ */
 
-// FIRST STEP - clean build folder
+// clean build folder
 
 function cleanBuildFolder(cb){
 	del.sync(path.clean);
@@ -89,28 +88,30 @@ function cleanBuildFolder(cb){
 // NEXT STEP - write some functions for build some files.
 
 // This is build functions for all type of web dev files: html, styles(css, scss), code(js), imgs.
-// This functions group(calls) into one additional function - "runAllBuildFunctions"
+
+// !!!! 
+// I REMOVE MINIMIZE AND SOURSEMAP FROM DEV PROCESS, BECAUSE COMPILATION TIME IS LONG.
+// NOW FILES MINIMIZE IN BUILD COMMAND. 
+// !!!!
 
 function htmlBuild(){
 	return src(path.src.html)
-		     .pipe(plumber())
-         .pipe(rigger())
-         .pipe(dest(path.build.html))
+		     //.pipe(plumber())
+         //.pipe(rigger())
+         //.pipe(dest(path.src.html))
          .pipe(webserver.reload({stream: true}));
 };
 
 function cssBuild(){
 	return src(path.src.style)
 		     .pipe(plumber())
-         //.pipe(sourcemaps.init())
          .pipe(sass())
          .pipe(autoprefixer({
             overrideBrowserslist: ['last 2 versions'],
             cascade: false
          }))
-         .pipe(cleanCSS())
-         //.pipe(sourcemaps.write('./'))
          .pipe(stripCssComments({preserve: false}))
+         .pipe(cleanCSS())
          .pipe(dest('assets/src/css'))
          .pipe(webserver.reload({stream: true}));
 };
@@ -119,10 +120,6 @@ function jsBuild(){
 	return src(path.src.js)
 		     .pipe(plumber())
          .pipe(rigger())
-         //.pipe(sourcemaps.init())
-         .pipe(uglify())
-         //.pipe(sourcemaps.write('./'))
-         .pipe(rename('main.min.js'))
          .pipe(dest('assets/src/js'))
          .pipe(webserver.reload({stream: true}));
 };
@@ -165,18 +162,44 @@ function watchChanges(cb){
 	cb();
 };
 
+
+
+
+//
+// BUILD TASK
+//
+
 function takeFile(from, to){
   return src(from)
          .pipe(dest(to));
 };
 
-function moveFile(cb){
+function moveFiles(cb){
   takeFile(path.src.html, path.build.html);
   takeFile('assets/src/css/main.css', path.build.css);
-  takeFile('assets/src/js/main.min.js', path.build.js);
+  takeFile('assets/src/js/main.js', path.build.js);
   takeFile(path.src.img, path.build.img);
   takeFile(path.src.fonts, path.build.fonts);
   cb();
+};
+
+// MINIMIZE FILES FOR BUILD TASK
+function minimizeCSS(cb){
+  return src('assets/src/css/main.css')
+		     .pipe(plumber())
+         //.pipe(sourcemaps.init())
+         //.pipe(cleanCSS())
+         //.pipe(sourcemaps.write('./'))
+         .pipe(dest('assets/build/css'))
+};
+
+function minimizeJS(cb){
+  return src(path.src.js)
+         .pipe(plumber())
+         //.pipe(sourcemaps.init())
+         .pipe(uglify())
+         //.pipe(sourcemaps.write('./'))
+         .pipe(dest('assets/build/js'))
 }
 
 
@@ -203,6 +226,10 @@ exports.watch = series(
 
 // build project to build folder
 exports.build = series(
+  parallel(
+    minimizeCSS,
+    minimizeJS
+  ),
   cleanBuildFolder,
-  moveFile
+  moveFiles
 );

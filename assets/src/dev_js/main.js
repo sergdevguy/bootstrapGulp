@@ -1,10 +1,16 @@
+// BOOTSTRAP 4
+
 // import required js-files
+// ------------------------
 //= ../../../node_modules/jquery/dist/jquery.js
 //= ../../../node_modules/bootstrap/js/dist/util.js
 
- 
-// Import needed js-files from Bootstrap 4
+// Import optional files
+// ---------------------
 //= ../../../node_modules/bootstrap/js/dist/carousel.js
- 
-// Import my own js
+
+
+
+
+// Import developer js
 //= my.js
