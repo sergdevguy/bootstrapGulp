@@ -1,14 +1,26 @@
+// Override bootstrap4 variables.
+@import "variables";
+
+
+
+
 // BOOTSTRAP 4
 
-// Required files for bootstrap
+// required files
 @import "../../../node_modules/bootstrap/scss/functions";
 @import "../../../node_modules/bootstrap/scss/variables";
 @import "../../../node_modules/bootstrap/scss/mixins";
 
-// Optional imports
+// optional files
 @import "../../../node_modules/bootstrap/scss/bootstrap-reboot.scss";
 @import "../../../node_modules/bootstrap/scss/bootstrap-grid.scss";
 @import "../../../node_modules/bootstrap/scss/carousel";
+
+
+
+
+// Animate.css
+@import "../../../node_modules/animate.css/animate.css";
 
 
 
@@ -19,6 +31,5 @@
 
 
 
-// Connect my styles
-@import "variables";
+// My styles
 @import "my";
