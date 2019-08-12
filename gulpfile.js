@@ -125,8 +125,9 @@ function jsBuild(){
 };
 
 function fontsBuild(){
-	return src(path.src.fonts)
-		     .pipe(dest(path.build.fonts));
+  return src(path.src.fonts)
+         .pipe(webserver.reload({stream: true}));
+		     //.pipe(dest(path.build.fonts));
 };
 
 function imageBuild(){
@@ -176,31 +177,36 @@ function takeFile(from, to){
 
 function moveFiles(cb){
   takeFile(path.src.html, path.build.html);
-  takeFile('assets/src/css/main.css', path.build.css);
-  takeFile('assets/src/js/main.js', path.build.js);
   takeFile(path.src.img, path.build.img);
   takeFile(path.src.fonts, path.build.fonts);
   cb();
 };
 
 // MINIMIZE FILES FOR BUILD TASK
-function minimizeCSS(cb){
-  return src('assets/src/css/main.css')
+function minimizeCSS(){
+  return src(path.src.style)
 		     .pipe(plumber())
-         //.pipe(sourcemaps.init())
-         //.pipe(cleanCSS())
-         //.pipe(sourcemaps.write('./'))
+         .pipe(sass())
+         .pipe(autoprefixer({
+            overrideBrowserslist: ['last 2 versions'],
+            cascade: false
+         }))
+         .pipe(stripCssComments({preserve: false}))
+         .pipe(cleanCSS())
          .pipe(dest('assets/build/css'))
 };
 
-function minimizeJS(cb){
-  return src(path.src.js)
+function minimizeJS(){
+  return src('assets/src/dev_js/main.js')
          .pipe(plumber())
+         .pipe(rigger())
          //.pipe(sourcemaps.init())
          .pipe(uglify())
          //.pipe(sourcemaps.write('./'))
          .pipe(dest('assets/build/js'))
-}
+};
+
+
 
 
 
@@ -223,13 +229,12 @@ exports.watch = series(
   watchChanges
 );
 
-
 // build project to build folder
 exports.build = series(
+  cleanBuildFolder,
   parallel(
     minimizeCSS,
     minimizeJS
   ),
-  cleanBuildFolder,
   moveFiles
 );
