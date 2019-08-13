@@ -52,6 +52,7 @@ ______________________________________________________
 __________________ REQUIRE PLUGINS ___________________
 ___________________________________________________ */
 
+
 // Add packages
 const { src, dest, series, parallel, watch } = require('gulp');
 const webserver         = require('browser-sync'), // reload browser in real time
@@ -77,6 +78,7 @@ ______________________________________________________
 _______________________ TASKS ________________________
 ___________________________________________________ */
 
+
 // clean build folder
 
 function cleanBuildFolder(cb){
@@ -84,10 +86,6 @@ function cleanBuildFolder(cb){
 	cb();
 };
 
-
-// NEXT STEP - write some functions for build some files.
-
-// This is build functions for all type of web dev files: html, styles(css, scss), code(js), imgs.
 
 // !!!! 
 // I REMOVE MINIMIZE AND SOURSEMAP FROM DEV PROCESS, BECAUSE COMPILATION TIME IS LONG.
@@ -145,14 +143,12 @@ function imageBuild(){
         .pipe(dest(path.build.img));
 };
 
-// NEXT STEP
 
 function createWebserver(cb){
 	webserver(config);
 	cb();
 };
 
-// NEXT STEP
 
 function watchChanges(cb){
   watch(path.watch.html, htmlBuild);
@@ -162,8 +158,6 @@ function watchChanges(cb){
   watch(path.watch.fonts, fontsBuild);
 	cb();
 };
-
-
 
 
 //
@@ -209,17 +203,16 @@ function minimizeJS(){
 
 
 
-
-
 /* ___________________________________________________
 ______________________________________________________
 __________________ TASKS FOR CONSOLE _________________
 ___________________________________________________ */
 
+
 // build files and watch changes
 exports.watch = series(
   parallel(
-    htmlBuild,
+    htmlWatch,//htmlBuild,
 	  cssBuild,
 	  jsBuild,
 	  fontsBuild,
@@ -228,6 +221,7 @@ exports.watch = series(
   createWebserver,
   watchChanges
 );
+
 
 // build project to build folder
 exports.build = series(
