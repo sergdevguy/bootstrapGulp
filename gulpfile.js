@@ -75,11 +75,11 @@ const webserver         = require('browser-sync'), // reload browser in real tim
 
 /* ___________________________________________________
 ______________________________________________________
-_______________________ TASKS ________________________
+_____________________ FUNCTIONS ______________________
 ___________________________________________________ */
 
 
-// clean build folder
+// clean
 
 function cleanBuildFolder(cb){
 	del.sync(path.clean);
@@ -125,7 +125,6 @@ function jsBuild(){
 function fontsBuild(){
   return src(path.src.fonts)
          .pipe(webserver.reload({stream: true}));
-		     //.pipe(dest(path.build.fonts));
 };
 
 function imageBuild(){
@@ -205,19 +204,12 @@ function minimizeJS(){
 
 /* ___________________________________________________
 ______________________________________________________
-__________________ TASKS FOR CONSOLE _________________
+_______________________ TASKS  _______________________
 ___________________________________________________ */
 
 
 // build files and watch changes
 exports.watch = series(
-  parallel(
-    htmlWatch,//htmlBuild,
-	  cssBuild,
-	  jsBuild,
-	  fontsBuild,
-	  imageBuild
-  ),
   createWebserver,
   watchChanges
 );
