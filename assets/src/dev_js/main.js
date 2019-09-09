@@ -1,7 +1,7 @@
 // BOOTSTRAP 4
 
 // import required js-files
-// ------------------------
+// ---------------------
 //= ../../../node_modules/jquery/dist/jquery.js
 //= ../../../node_modules/bootstrap/js/dist/util.js
 
@@ -10,6 +10,9 @@
 //= ../../../node_modules/bootstrap/js/dist/carousel.js
 
 
+// Import smooth-scroll.js (scroll to id)
+// ---------------------
+//= ../../../node_modules/smooth-scroll/dist/smooth-scroll.js
 
 
 // Import developer js
