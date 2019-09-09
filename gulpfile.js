@@ -166,15 +166,16 @@ function imageBuild(){
 		      .pipe(cache(imagemin([ // compressing img
 		        imagemin.gifsicle({interlaced: true}),
             jpegrecompress({
-                progressive: true,
-                max: 90,
-                min: 80
+              progressive: true,
+              max: 90,
+              min: 80
             }),
             pngquant(),
             imagemin.svgo({plugins: [{removeViewBox: false}]})
 		      ])))
         .pipe(dest(path.build.img));
 };
+
 
 // ?????????????????????????????????????????????????????????
 //
@@ -199,7 +200,6 @@ function moveFiles(from, to){
 
 function moveFilesList(cb){
   moveFiles(path.src.html, path.build.html);
-  moveFiles(path.src.img, path.build.img);
   moveFiles(path.src.fonts, path.build.fonts);
   cb();
 };
@@ -250,7 +250,7 @@ exports.build = series(
   parallel(
     minimizeCSS,
     minimizeJS,
-    imageBuild
-  ),
-  moveFilesList
+    imageBuild,
+    moveFilesList
+  )
 );
