@@ -184,8 +184,6 @@ function watchChanges(cb){
   watch(path.watch.html, htmlBuild);
   watch(path.watch.css, cssBuild);
   watch(path.watch.js, jsBuild);
-  watch(path.watch.img, imageBuild);
-  watch(path.watch.fonts, fontsBuild);
 	cb();
 };
 
@@ -194,15 +192,15 @@ function watchChanges(cb){
 // BUILD FUNCTIONS
 //
 
-function takeFile(from, to){
+function moveFiles(from, to){
   return src(from)
          .pipe(dest(to));
 };
 
-function moveFiles(cb){
-  takeFile(path.src.html, path.build.html);
-  takeFile(path.src.img, path.build.img);
-  takeFile(path.src.fonts, path.build.fonts);
+function moveFilesList(cb){
+  moveFiles(path.src.html, path.build.html);
+  moveFiles(path.src.img, path.build.img);
+  moveFiles(path.src.fonts, path.build.fonts);
   cb();
 };
 
@@ -251,7 +249,8 @@ exports.build = series(
   cleanBuildFolder,
   parallel(
     minimizeCSS,
-    minimizeJS
+    minimizeJS,
+    imageBuild
   ),
-  moveFiles
+  moveFilesList
 );
