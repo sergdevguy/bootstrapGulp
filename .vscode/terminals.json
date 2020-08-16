@@ -1,9 +1,0 @@
-{
-  "autorun": true,
-  "terminals": [
-    {
-      "name": "cmd",
-      "shellPath": "C://Windows//System32//cmd.exe"
-    }
-  ]
-}
