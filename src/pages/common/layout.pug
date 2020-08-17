@@ -1,0 +1,16 @@
+doctype html
+html(lang="ru")
+    block head
+        head
+            meta(charset="utf-8")
+            title Site title
+            meta(content="width=device-width, initial-scale=1" name="viewport")
+            meta(content="IE=edge" http-equiv="x-ua-compatible")
+    body
+        block header
+            include header
+        block content
+        block footer
+            include footer
+        block scripts
+            script(src='/main.js')
